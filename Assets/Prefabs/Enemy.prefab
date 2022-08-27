@@ -162,8 +162,9 @@ MonoBehaviour:
   nextMove: -1
   moveSpeed: 5
   power: 5
-  maxShotDelay: 2
+  maxShotDelay: 5
   curShotDelay: 0
+  time: 0
   sprites:
   - {fileID: 0}
   bulletObject: {fileID: 986864122328820075, guid: 1a5697f264fce7348be88d03f9844a97, type: 3}
