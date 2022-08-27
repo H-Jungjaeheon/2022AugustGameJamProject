@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GrapplingHook : MonoBehaviour
 {
+    public PlayerMovement player;
     public DistanceJoint2D joint2D;
     private Hook hook;
 
@@ -19,6 +20,10 @@ public class GrapplingHook : MonoBehaviour
         {
             joint2D.enabled = true;
             hook.isHang = true;
+        }
+        else if (collision.CompareTag("Enemy"))
+        {
+
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SupplyBoxSpawner : MonoSingle<SupplyBoxSpawner>
 {
+    public Camera Cam;
     [SerializeField]
     private ObjectPool SupplyBox;
 
@@ -36,6 +37,19 @@ public class SupplyBoxSpawner : MonoSingle<SupplyBoxSpawner>
     void Update()
     {
         DeleteSupplyBoxCount();
+        Cam.transform.position += new Vector3(1*Time.deltaTime,0,0);
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            LogicManager.instance.GamePause(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            LogicManager.instance.GamePause(false);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            LogicManager.instance.EnemyHit();
+        }
     }
 
     private void DeleteSupplyBoxCount()

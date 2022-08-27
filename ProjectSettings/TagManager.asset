@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Supplies
   - Enemy
+  - SupplyBoxDestryZone
   layers:
   - Default
   - TransparentFX
