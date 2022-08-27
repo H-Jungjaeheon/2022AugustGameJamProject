@@ -4,10 +4,9 @@ using UnityEngine;
 
 public enum GameStates
 {
-    BeforeGameStarts,
     Playing,
     GameOver,
-    GameClear,
+    GameClear
 }
 
 public class LogicManager : MonoSingle<LogicManager>
@@ -49,10 +48,17 @@ public class LogicManager : MonoSingle<LogicManager>
 
     public void ChangeNowGameState(GameStates changeGameState) //enum타입에 맞는 변경할 상태 넣기
     {
-            nowGameState = changeGameState;
-        //if (changeGameState <= GameStates.GameClear)
-        //{
-        //}
+        nowGameState = changeGameState;
+    }
+
+    public void GameOver()
+    {
+        nowGameState = GameStates.GameOver;
+    }
+
+    public void ReStart()
+    {
+        nowGameState = GameStates.Playing;
     }
 
     private void StartTimer()
