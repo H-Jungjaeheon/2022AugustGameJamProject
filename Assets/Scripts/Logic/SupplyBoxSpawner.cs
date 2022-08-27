@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SupplyBoxSpawner : MonoSingle<SupplyBoxSpawner>
 {
-    public Camera Cam;
+    Camera Cam;
     [SerializeField]
     private ObjectPool SupplyBox;
 
@@ -31,6 +31,7 @@ public class SupplyBoxSpawner : MonoSingle<SupplyBoxSpawner>
 
     void Start()
     {
+        Cam = Camera.main;
         StartSetting();
     }
 

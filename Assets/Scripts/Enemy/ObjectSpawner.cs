@@ -16,7 +16,6 @@ public class ObjectSpawner : MonoBehaviour
     private void Update()
     {
         time += Time.deltaTime;
-        Debug.Log(time);
     }
 
     private void Start()
