@@ -22,7 +22,7 @@ public class Utility
         var go = UnityEngine.Object.Instantiate(request) as GameObject;
         return go;
     }
-
+ 
     /// <summary>
     /// 방향 벡터를 입력하면 해당 방향을 X축을 통해 바라보는 각도를 반환합니다. transform.eulerAngles의 Z값에 사용됩니다.
     /// </summary>
