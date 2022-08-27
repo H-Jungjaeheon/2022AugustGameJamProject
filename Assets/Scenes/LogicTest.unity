@@ -1010,6 +1010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6924a7e942853c47b8c42663242629d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Cam: {fileID: 1417946291}
   SupplyBox: {fileID: 1303507091}
   MaxSupplyBoxCount: 9
 --- !u!1 &1947298921

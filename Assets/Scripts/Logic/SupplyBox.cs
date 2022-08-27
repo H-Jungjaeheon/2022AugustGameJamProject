@@ -14,6 +14,10 @@ public class SupplyBox : MonoBehaviour
         //    else
         //        Destroy(gameObject);
         //}
-        gameObject.SetActive(false);
+        if (collision.gameObject.CompareTag("SupplyBoxDestryZone"))
+        {
+            SupplyBoxSpawner.Inst.NowSupplyBoxCount--;
+            gameObject.SetActive(false);
+        }
     }
 }
