@@ -23,7 +23,7 @@ public class GrapplingHook : MonoBehaviour
         }
         else if (collision.CompareTag("Enemy"))
         {
-
+            player.CatchEnemy(collision.transform.position);
         }
     }
 }
