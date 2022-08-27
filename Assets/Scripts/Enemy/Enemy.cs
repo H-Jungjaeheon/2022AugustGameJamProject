@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public Sprite[] sprites;
     public GameObject  bulletObject;
     public GameObject player;
+    Vector3 dir;
     //public ObjectPool bulletPool = null;
     Transform playerPos;
     SpriteRenderer spriteRenderer;
@@ -49,7 +50,6 @@ public class Enemy : MonoBehaviour
         Rigidbody2D rig = bullet.GetComponent<Rigidbody2D>();
         bullet.transform.position = this.transform.position;
         bullet.transform.rotation = Quaternion.identity;
-        Vector3 dir;
         if (LogicManager.Inst != null)
         {
             dir = LogicManager.Inst.playerObj.transform.position - transform.position;
@@ -66,12 +66,14 @@ public class Enemy : MonoBehaviour
     void Move()
     {
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        rigid.rotation = angle;
         if (pos.x < 0f)//哭率 场
-            pos.x = 0f;
+            pos.x = 0.9f;
         if (pos.x > 1f) //坷弗率 场
-            pos.x = 1f;
-        if (pos.y < 0f) pos.y = 0f;
-        if (pos.y > 1f) pos.y = 1f;
+            pos.x = 0.9f;
+        if (pos.y < 0f) pos.y = 0.1f;
+        if (pos.y > 1f) pos.y = 0.9f;
         transform.position = Camera.main.ViewportToWorldPoint(pos);
 
         rigid.velocity = new Vector2(nextMove, 0) * moveSpeed;

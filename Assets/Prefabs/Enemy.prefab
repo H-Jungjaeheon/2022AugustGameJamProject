@@ -160,9 +160,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextMove: -1
-  moveSpeed: 2
-  power: 1
-  maxShotDelay: 3
+  moveSpeed: 5
+  power: 5
+  maxShotDelay: 2
   curShotDelay: 0
   sprites:
   - {fileID: 0}
