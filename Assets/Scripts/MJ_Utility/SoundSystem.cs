@@ -13,22 +13,10 @@ public class SoundSystem : MonoSingle<SoundSystem>
 
 	[SerializeField]
 	private SoundPoolSizeCtrl soundFxPool;
-	[SerializeField]
-	private SoundPoolSizeCtrl soundFx3dPool;
 	private readonly Dictionary<string, AudioClip> nameToSound = new Dictionary<string, AudioClip>();
 	public Dictionary<string, int> soundCount = new Dictionary<string, int>();
 
 	public int MaxSoundCount = 5;
-	public static SoundSystem Load()
-	{
-		GameObject obj = Utility.ResourceLoad("prefabs/SoundSystem");
-
-		obj.transform.SetParent(null);
-		obj.transform.position = Vector3.zero;
-		obj.transform.localScale = Vector3.one;
-		obj.transform.rotation = Quaternion.identity;
-		return obj.GetComponent<SoundSystem>();
-	}
 
 	override protected void Awake()
 	{
@@ -58,7 +46,6 @@ public class SoundSystem : MonoSingle<SoundSystem>
 	private void Start()
 	{
 		soundFxPool.Initialize();
-		soundFx3dPool.Initialize();
 	}
 
 
@@ -92,8 +79,6 @@ public class SoundSystem : MonoSingle<SoundSystem>
 			return null;
 		}
 
-		//transform.position = pos;
-
 		var clip = nameToSound[soundName];
 
 		if (soundCount[soundName] < MaxSoundCount) //N개
@@ -113,8 +98,6 @@ public class SoundSystem : MonoSingle<SoundSystem>
 			LMJ.LogError("No sound data : " + soundName);
 			return null;
 		}
-
-		//transform.position = pos;
 
 		var clip = nameToSound[soundName];
 
@@ -141,16 +124,7 @@ public class SoundSystem : MonoSingle<SoundSystem>
 
 		GameObject obj = null;
 
-		//if (pos == Vector3.zero)
-		//	obj = soundFxPool.GetObject(!loop);
-		//else
-		//	obj = soundFx3dPool.GetObject(!loop);
-
-		if (pos == Vector3.zero)
-			obj = soundFxPool.GetObject(loop);
-		else
-			obj = soundFx3dPool.GetObject(loop);
-
+		obj = soundFxPool.GetObject(loop);
 
 		if (obj != null && sound == 1 && clip != null)
 		{
@@ -170,14 +144,8 @@ public class SoundSystem : MonoSingle<SoundSystem>
 
 		GameObject obj = null;
 
-		//if (parent == null)
-		//	obj = soundFxPool.GetObject(!loop);
-		//else
-		//	obj = soundFx3dPool.GetObject(!loop);
 		if (parent == null)
 			obj = soundFxPool.GetObject(loop);
-		else
-			obj = soundFx3dPool.GetObject(loop);
 
 		if (obj != null && sound == 1 && clip != null)
 		{
