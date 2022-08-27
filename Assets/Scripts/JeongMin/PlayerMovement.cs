@@ -1,24 +1,39 @@
 using System.Collections;
 using UnityEngine;
 
+public enum PlayerState
+{
+    Hang,
+    Rush,
+    Jump
+}
+
 public class PlayerMovement : MonoBehaviour
 {
+    PlayerState currentState;
+
     [SerializeField] float playerSpeed;
     [SerializeField] float rushSpeed;
     [SerializeField] float jumpForce;
     [SerializeField] float attackDistance;
+
+    [SerializeField] Sprite[] P_Sprite = new Sprite[3];
 
     private float moveInput;
 
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
     private Hook playerHook;
+    private SpriteRenderer spriteRenderer;
 
     //นÝป็
     private bool isReflex;
     private bool isReachEnemy;
     private void Start()
     {
+        currentState = PlayerState.Jump;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         playerHook = GetComponent<Hook>();
         boxCollider = GetComponent<BoxCollider2D>();
@@ -35,8 +50,24 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
+        if (playerHook.isHang) currentState = PlayerState.Hang;
+        SpriteChange();
         Rush();
-        Jump();
+        Jump();        
+    }
+
+    void SpriteChange()
+    {
+        if(rb.velocity.x > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if(rb.velocity.x < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+
+        spriteRenderer.sprite = P_Sprite[(int)currentState];
     }
 
     void Move(float dir)
@@ -65,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Rushing(Vector3 point)
     {
+        currentState = PlayerState.Rush;
         SoundPlayer.PlaySoundFx("Dash_Sound");
         boxCollider.enabled = false;
         isReflex = true;
@@ -85,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            currentState = PlayerState.Jump;
             SoundPlayer.PlaySoundFx("Jump_Sound");
             playerHook.PutHook();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -99,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator RushToEnemy(Vector2 Point)
     {
+        currentState = PlayerState.Rush;
         while (true)
         {
             if (isReachEnemy) break;
@@ -135,6 +169,7 @@ public class PlayerMovement : MonoBehaviour
             }
             yield return null;
         }
+        currentState = PlayerState.Jump;
         rb.velocity = new Vector2(rb.velocity.x, jumpForce + 2);
 
         float curTime2 = 0;

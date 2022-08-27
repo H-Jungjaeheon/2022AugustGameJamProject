@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Hook : MonoBehaviour
 {
-
     [SerializeField] LineRenderer line;
     public Transform hook;
 
