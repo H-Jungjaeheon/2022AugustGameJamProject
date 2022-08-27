@@ -87,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void CatchEnemy(Vector2 EnemyPos)
     {
+        playerHook.PutHook();
         StartCoroutine(RushToEnemy(EnemyPos));
     }
 
@@ -124,12 +125,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector2(jumpForce, jumpForce);
             }
-            else
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            }
             yield return null;
         }
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
