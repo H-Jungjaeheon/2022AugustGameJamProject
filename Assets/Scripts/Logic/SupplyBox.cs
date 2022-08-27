@@ -9,7 +9,10 @@ public class SupplyBox : MonoBehaviour
         if (collision.gameObject.CompareTag("SupplyBoxDestryZone"))
         {
             SupplyBoxSpawner.Inst.NowSupplyBoxCount--;
-            Destroy(gameObject);
+            if(GetComponent<PooledObject>())
+                GetComponent<PooledObject>().Pool.ReturnObject(gameObject);
+            else
+                Destroy(gameObject);
         }
     }
 }

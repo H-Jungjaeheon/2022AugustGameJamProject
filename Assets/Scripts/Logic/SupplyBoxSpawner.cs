@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class SupplyBoxSpawner : MonoSingle<SupplyBoxSpawner>
 {
+    //[SerializeField]
+    //private GameObject SupplyBox;
+
     [SerializeField]
-    private GameObject SupplyBox;
+    private ObjectPool SupplyBox;
 
     public int MaxSupplyBoxCount;
 
@@ -65,7 +68,11 @@ public class SupplyBoxSpawner : MonoSingle<SupplyBoxSpawner>
             float posX = transform.position.x + Random.Range(-spawnVector.x / 2f, spawnVector.x / 2f);
             float posY = transform.position.y + Random.Range(-spawnVector.y / 2f, spawnVector.y / 2f);
             Vector2 spawnRandPos = new Vector2(posX, posY);
-            Instantiate(SupplyBox, spawnRandPos, Quaternion.identity);
+            GameObject obj = SupplyBox.GetObject();
+            obj.transform.position = spawnRandPos;
+            obj.transform.rotation = Quaternion.identity;
+            obj.transform.parent = null;
+            //Instantiate(SupplyBox, spawnRandPos, Quaternion.identity);
             NowSupplyBoxCount++;
         }
     }
