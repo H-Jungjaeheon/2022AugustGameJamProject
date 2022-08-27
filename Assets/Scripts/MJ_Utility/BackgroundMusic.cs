@@ -10,18 +10,6 @@ public class BackgroundMusic : MonoSingle<BackgroundMusic>
     [SerializeField]
     AudioClip bgm;
 
-    public static BackgroundMusic Load()
-    {
-        GameObject obj = Utility.ResourceLoad("prefabs/BackgroundMusic");
-        if (obj == null)
-            return null;
-        obj.transform.SetParent(null);
-        obj.transform.position = Vector3.zero;
-        obj.transform.localScale = Vector3.one;
-        obj.transform.rotation = Quaternion.identity;
-        return obj.GetComponent<BackgroundMusic>();
-    }
-
     AudioSource audio;
     override protected void Awake()
     {

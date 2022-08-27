@@ -6,6 +6,9 @@ public class test : MonoBehaviour
 {
     private void Start()
     {
-       // Utility.ChangeCursor("Textures/testCursor");
+        //SoundPlayer.PlaySoundFx("Attack_Sound");
+        //SoundPlayer.PlaySoundFx("Dash_Sound");
+        //SoundPlayer.PlaySoundFx("Jump_Sound");
+        //SoundPlayer.PlaySoundFx("Reflect_Sound");
     }
 }
