@@ -34,7 +34,7 @@ public class ObjectSpawner : MonoBehaviour
             int monsterCount = (int)GameObject.FindGameObjectsWithTag("Enemy").Length;
             int index = Random.Range(0, prefabArray.Length);
             float x = Random.Range(-7.5f, 7.5f);
-            float y = 0f;
+            float y = -4f;
             Vector3 position = new Vector3(x, y, 0);
 
             if (monsterCount < objectSpqwnCount)
