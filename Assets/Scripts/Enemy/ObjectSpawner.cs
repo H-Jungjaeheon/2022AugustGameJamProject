@@ -11,12 +11,13 @@ public class ObjectSpawner : MonoBehaviour
     private int objectSpqwnCount = 10;
     private Vector3 ScreenCenter;
     public float time;
+    public GameObject player;
     public float spawnTime = 5;
     public bool isGameOver = false;
+
     private void Update()
     {
         time += Time.deltaTime;
-        Debug.Log(time);
     }
 
     private void Start()
@@ -49,6 +50,8 @@ public class ObjectSpawner : MonoBehaviour
                 clone.AddComponent <EnemyMove> ();
                 clone.AddComponent<CircleCollider2D>();
                 clone.GetComponent<Rigidbody2D>().gravityScale = 0;
+                EnemyMove enemyLogic = clone.GetComponent<EnemyMove>();
+                enemyLogic.player = player;
             }
             else
             {
