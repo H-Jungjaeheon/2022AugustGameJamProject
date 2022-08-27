@@ -13,8 +13,6 @@ public static class SoundPlayer
 
 	public static void Initialize()
 	{
-		if (BackgroundMusic.Inst == null)
-			BackgroundMusic.Load();
 
 	}
 

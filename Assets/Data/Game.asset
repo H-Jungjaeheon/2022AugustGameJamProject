@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b14fcbd353a9645a989ff64361fa81, type: 3}
   m_Name: Game
   m_EditorClassIdentifier: 
-  Sounds: []
+  Sounds:
+  - {fileID: 8300000, guid: bfea7175076b3cc408b8589f7bd97564, type: 3}
+  - {fileID: 8300000, guid: e174da656a0a399409f5e12cbaed0d6e, type: 3}
+  - {fileID: 8300000, guid: 9222282233cd5364da0595cf39b57182, type: 3}
+  - {fileID: 8300000, guid: ed0362216bb02c845ac66c8ef195dc83, type: 3}
