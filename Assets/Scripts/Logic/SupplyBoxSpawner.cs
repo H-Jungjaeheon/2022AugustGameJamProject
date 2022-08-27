@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class SupplyBoxSpawner : MonoSingle<SupplyBoxSpawner>
 {
-    //[SerializeField]
-    //private GameObject SupplyBox;
-
     [SerializeField]
     private ObjectPool SupplyBox;
 
@@ -69,7 +66,6 @@ public class SupplyBoxSpawner : MonoSingle<SupplyBoxSpawner>
         obj.transform.position = spawnRandPos;
         obj.transform.rotation = Quaternion.identity;
         obj.transform.parent = null;
-        //Instantiate(SupplyBox, spawnRandPos, Quaternion.identity);
         nowSupplyBoxCount++;
     }
 }
