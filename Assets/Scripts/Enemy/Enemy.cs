@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public float power = 100;
     public float maxShotDelay;
     public float curShotDelay;
+    public int time;
     public Sprite[] sprites;
     public GameObject  bulletObject;
     public GameObject player;
@@ -30,8 +31,10 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         Move();
+        maxShotDelay = Random.RandomRange(3.5f, 5f);
         Shot();
         Reload();
+        time = (int)Time.deltaTime;
     }
     //Àç±Í½Ä
     void Think()

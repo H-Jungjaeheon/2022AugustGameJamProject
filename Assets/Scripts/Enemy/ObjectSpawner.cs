@@ -9,7 +9,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField]
     List<GameObject> enemys = new List<GameObject>();
     [SerializeField]
-    private int objectSpqwnCount = 10;
+    public int objectSpqwnCount = 2;
     private Vector3 ScreenCenter;
     public float time;
     public GameObject player;
@@ -64,8 +64,38 @@ public class ObjectSpawner : MonoBehaviour
         while (!isGameOver)
         {
             //현재 생성된 몬스터 개수 산출
-            int monsterCount = enemys.Count;
+            int monsterCount = 0;
             //int index = Random.Range(0, prefabArray.Length);
+            if (15 < time && time < 60)
+            {
+                spawnTime = 5;
+                monsterCount = 2;
+            }
+            else if (60 < time && time < 90)
+            {
+                spawnTime = 5;
+                monsterCount = 3;
+            }
+            else if (90 < time && time < 120)
+            {
+                spawnTime = 3;
+                monsterCount = 3;
+            }
+            else if (120 < time && time < 150)
+            {
+                spawnTime = 3;
+                monsterCount = 5;
+            }
+            else if (150 < time && time < 180)
+            {
+                spawnTime = 2;
+                monsterCount = 5;
+            }
+            else if(time > 180)
+            {
+                spawnTime = 1;
+                monsterCount = 5;
+            }
 
             if (monsterCount < objectSpqwnCount)
             {
@@ -74,7 +104,7 @@ public class ObjectSpawner : MonoBehaviour
 
                 //불규칙적인 위치 산출
                 int idx = Random.Range(1, Camera.main.pixelWidth);
-                float x = Random.Range(-idx, idx);
+                float x = Random.Range(Camera.main.pixelWidth/2, idx);
                 float y = -4f;
                 Vector3 position = new Vector3(x, y, 0);
 
@@ -87,6 +117,7 @@ public class ObjectSpawner : MonoBehaviour
                 //clone.AddComponent<Enemy>();
                 //Enemy enemyLogic = clone.GetComponent<Enemy>();
                 //enemyLogic.player = player;
+                monsterCount++;
             }
             else
             {
