@@ -84,9 +84,9 @@ public class ObjectSpawner : MonoBehaviour
                 clone.transform.position = position;
                 clone.transform.rotation = Quaternion.identity;
                 clone.tag = "Enemy";
-                clone.AddComponent<Enemy>();
-                Enemy enemyLogic = clone.GetComponent<Enemy>();
-                enemyLogic.player = player;
+                //clone.AddComponent<Enemy>();
+                //Enemy enemyLogic = clone.GetComponent<Enemy>();
+                //enemyLogic.player = player;
             }
             else
             {
