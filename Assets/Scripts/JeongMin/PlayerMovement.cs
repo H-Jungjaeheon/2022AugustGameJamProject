@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float playerSpeed;
     [SerializeField] float rushSpeed;
     [SerializeField] float jumpForce;
+    [SerializeField] float attackDistance;
 
     private float moveInput;
 
@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     //반사
     private bool isReflex;
+    private bool isReachEnemy;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -53,13 +54,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector2 rushPoint = playerHook.hook.position;
-            playerHook.PutHook();      
+            playerHook.PutHook();
             StartCoroutine(Rushing(rushPoint));
         }
     }
 
     IEnumerator Rushing(Vector3 point)
     {
+        SoundPlayer.PlaySoundFx("Dash_Sound");
         while (true)
         {
             if (Vector2.Distance(transform.position, point) <= 1f) break;
@@ -75,8 +77,66 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            SoundPlayer.PlaySoundFx("Jump_Sound");
             playerHook.PutHook();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
+
+    public void CatchEnemy(Vector2 EnemyPos)
+    {
+        StartCoroutine(RushToEnemy(EnemyPos));
+    }
+
+    IEnumerator RushToEnemy(Vector2 Point)
+    {
+        while (true)
+        {
+            if (isReachEnemy) break;
+            
+            transform.position = Vector2.MoveTowards(transform.position, Point, 35 * Time.deltaTime);
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    IEnumerator KillEnemy(GameObject enemy)
+    {
+        //공격 애니메이션
+        SoundPlayer.PlaySoundFx("Attack_Sound");
+        Destroy(enemy, 0.2f);
+
+        //느려지는 함수
+        yield return new WaitForSeconds(0.2f);
+
+        float curTime = 0;
+        float limTime = Time.time + 0.33f;
+        while (curTime <= limTime)
+        {
+            curTime = Time.time;
+
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                rb.velocity = new Vector2(-jumpForce, jumpForce);
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                rb.velocity = new Vector2(jumpForce, jumpForce);
+            }
+            else
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            }
+            yield return null;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            isReachEnemy = true;
+            StartCoroutine(KillEnemy(collision.gameObject));
+        }
+    }
+
 }
