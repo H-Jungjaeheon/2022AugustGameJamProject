@@ -23,6 +23,11 @@ public class LogicManager : MonoSingle<LogicManager>
         set
         {
             killEnemyCount = value;
+            if(UIMgr.Inst !=null)
+            {
+                UIMgr.Inst.killCountText.text ="(" + killEnemyCount.ToString()+ ")";
+            }
+
         }
     }
 
@@ -55,11 +60,20 @@ public class LogicManager : MonoSingle<LogicManager>
         if (nowGameState == GameStates.Playing)
         {
             gameTime += Time.deltaTime;
+
+            if(UIMgr.Inst != null)
+                UIMgr.Inst.survivalTimeText.text ="생존 시간 ( "  + getParseTime(gameTime) + " )";
         }
         else 
         {
             gameTime = 0;
         }
+    }
+    public string getParseTime(float time)
+    {
+        string t = System.TimeSpan.FromSeconds(time).ToString("m\\:ss");
+        string[] tokens = t.Split(':');
+        return tokens[0] + ":" + tokens[1];
     }
 
     public void GamePause(bool isPause)
