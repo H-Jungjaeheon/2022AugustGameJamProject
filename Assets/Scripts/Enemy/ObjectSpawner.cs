@@ -47,6 +47,7 @@ public class ObjectSpawner : MonoBehaviour
                 GameObject clone = Instantiate(prefabArray[index], position, Quaternion.identity);
                 clone.tag = "Enemy";
                 clone.AddComponent <EnemyMove> ();
+                clone.AddComponent<CircleCollider2D>();
                 clone.GetComponent<Rigidbody2D>().gravityScale = 0;
             }
             else

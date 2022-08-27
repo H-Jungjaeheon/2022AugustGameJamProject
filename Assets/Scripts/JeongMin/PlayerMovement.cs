@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (playerHook.isHang)
         {
-            rb.AddForce(new Vector2(dir * playerSpeed, 0));
+            rb.AddForce(new Vector2(dir * playerSpeed + 8, 0));
         }
         else
         {
