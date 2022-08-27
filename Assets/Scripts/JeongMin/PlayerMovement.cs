@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveInput;
 
     private Rigidbody2D rb;
+    private BoxCollider2D boxCollider;
     private Hook playerHook;
 
     //반사
@@ -20,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerHook = GetComponent<Hook>();
+        boxCollider = GetComponent<BoxCollider2D>();
+
+        rb.AddForce(Vector2.up * 20f, ForceMode2D.Impulse);
     }
 
     // Update is called once per frame
@@ -39,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (playerHook.isHang)
         {
-            rb.AddForce(new Vector2(dir * playerSpeed + 8, 0));
+            rb.AddForce(new Vector2(dir * (playerSpeed + 8), 0));
         }
         else
         {
@@ -53,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            Vector2 rushPoint = playerHook.hook.position;
+            Vector2 rushPoint = playerHook.hook.position + Vector3.up * 3f;
             playerHook.PutHook();
             StartCoroutine(Rushing(rushPoint));
         }
@@ -62,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator Rushing(Vector3 point)
     {
         SoundPlayer.PlaySoundFx("Dash_Sound");
+        boxCollider.enabled = false;
         isReflex = true;
         while (true)
         {
@@ -71,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         isReflex = false;
+        boxCollider.enabled = true;
     }
 
     void Jump()
@@ -96,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
         while (true)
         {
             if (isReachEnemy) break;
-            
+
             transform.position = Vector2.MoveTowards(transform.position, Point, 35 * Time.deltaTime);
             yield return new WaitForFixedUpdate();
         }
@@ -104,30 +110,47 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator KillEnemy(GameObject enemy)
     {
-        //공격 애니메이션
         SoundPlayer.PlaySoundFx("Attack_Sound");
-        Destroy(enemy, 0.2f);
 
         LogicManager.Inst.EnemyHit(0.5f);
+        //공격 애니메이션
+        Destroy(enemy, 0.1f);
         yield return new WaitForSeconds(0.2f);
 
-        float curTime = 0;
-        float limTime = Time.time + 0.33f;
-        while (curTime <= limTime)
+        float curTime1 = 0;
+        float limTime1 = Time.time + 0.33f;
+        while (curTime1 <= limTime1)
         {
-            curTime = Time.time;
+            curTime1 = Time.time;
 
             if (Input.GetKeyDown(KeyCode.A))
             {
                 rb.velocity = new Vector2(-jumpForce, jumpForce);
+                break;
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
                 rb.velocity = new Vector2(jumpForce, jumpForce);
+                break;
             }
             yield return null;
         }
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce + 2);
+
+        float curTime2 = 0;
+        float limTime2 = Time.time + 1f;
+        while (curTime2 <= limTime2)
+        {
+            curTime2 = Time.time;
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 mouseDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+                Vector3 point = transform.position + mouseDir.normalized * 10;
+
+                StartCoroutine(Rushing(point));
+            }
+            yield return null;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -137,6 +160,24 @@ public class PlayerMovement : MonoBehaviour
             isReachEnemy = true;
             StartCoroutine(KillEnemy(collision.gameObject));
         }
+        else if (collision.gameObject.CompareTag("Bullet"))
+        {
+            if (isReflex)
+            {
+                Rigidbody2D rig = collision.gameObject.GetComponent<Rigidbody2D>();
+                rig.velocity = Vector3.zero;
+
+                var dir = collision.gameObject.transform.position - transform.position;
+                rig.AddForce(dir * (rig.velocity.magnitude * 3), ForceMode2D.Impulse);
+            }
+
+            //반사가 아닐 시 게임오버 처리
+            Die();
+        }
     }
 
+    public void Die()
+    {
+
+    }
 }
