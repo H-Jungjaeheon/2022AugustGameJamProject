@@ -66,9 +66,6 @@ public class ObjectSpawner : MonoBehaviour
             //현재 생성된 몬스터 개수 산출
             int monsterCount = enemys.Count;
             //int index = Random.Range(0, prefabArray.Length);
-            float x = Random.Range(-7.5f, 7.5f);
-            float y = -4f;
-            Vector3 position = new Vector3(x, y, 0);
 
             if (monsterCount < objectSpqwnCount)
             {
@@ -77,10 +74,13 @@ public class ObjectSpawner : MonoBehaviour
 
                 //불규칙적인 위치 산출
                 int idx = Random.Range(1, Camera.main.pixelWidth);
-
+                float x = Random.Range(-idx, idx);
+                float y = -4f;
+                Vector3 position = new Vector3(x, y, 0);
 
                 //몬스터의 동적 생성
                 GameObject clone = enemyPool.GetObject();
+            
                 clone.transform.position = position;
                 clone.transform.rotation = Quaternion.identity;
                 clone.tag = "Enemy";
