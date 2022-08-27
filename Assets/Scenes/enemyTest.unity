@@ -153,9 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabArray:
-  - {fileID: 3728010499159254902, guid: 46e1ba279fc00ae44bf1c789927c88d7, type: 3}
+  - {fileID: 2966956487413923523, guid: 1858d1f918524da4aa4ddc285b2fff8a, type: 3}
   objectSpqwnCount: 10
   time: 0
+  player: {fileID: 1728969664}
   spawnTime: 5
   isGameOver: 0
 --- !u!4 &242792288

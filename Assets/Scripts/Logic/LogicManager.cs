@@ -67,13 +67,12 @@ public class LogicManager : MonoSingleton<LogicManager>
         }
     }
 
-    public void EnemyHit()
+    public void EnemyHit(float hitEventTime)
     {
-        StartCoroutine(EnemyHitTimeScale());
+        StartCoroutine(EnemyHitTimeScale(hitEventTime));
     }
-    IEnumerator EnemyHitTimeScale()
+    IEnumerator EnemyHitTimeScale(float hitEventTime)
     {
-        float hitEventTime = 0.5f;
         float nowEventTime = 0;
         Time.timeScale = 0.3f;
         while (nowEventTime < hitEventTime)

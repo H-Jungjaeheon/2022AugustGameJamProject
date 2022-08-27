@@ -11,8 +11,10 @@ public class ObjectSpawner : MonoBehaviour
     private int objectSpqwnCount = 10;
     private Vector3 ScreenCenter;
     public float time;
+    public GameObject player;
     public float spawnTime = 5;
     public bool isGameOver = false;
+
     private void Update()
     {
         time += Time.deltaTime;
@@ -32,7 +34,7 @@ public class ObjectSpawner : MonoBehaviour
             int monsterCount = (int)GameObject.FindGameObjectsWithTag("Enemy").Length;
             int index = Random.Range(0, prefabArray.Length);
             float x = Random.Range(-7.5f, 7.5f);
-            float y = 0f;
+            float y = -4f;
             Vector3 position = new Vector3(x, y, 0);
 
             if (monsterCount < objectSpqwnCount)
@@ -48,6 +50,8 @@ public class ObjectSpawner : MonoBehaviour
                 clone.AddComponent <EnemyMove> ();
                 clone.AddComponent<CircleCollider2D>();
                 clone.GetComponent<Rigidbody2D>().gravityScale = 0;
+                EnemyMove enemyLogic = clone.GetComponent<EnemyMove>();
+                enemyLogic.player = player;
             }
             else
             {

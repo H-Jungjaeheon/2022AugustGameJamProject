@@ -62,13 +62,15 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator Rushing(Vector3 point)
     {
         SoundPlayer.PlaySoundFx("Dash_Sound");
+        isReflex = true;
         while (true)
         {
-            if (Vector2.Distance(transform.position, point) <= 1f) break;
+            if (Vector2.Distance(transform.position, point) <= 1.1f) break;
 
             transform.position = Vector2.MoveTowards(transform.position, point, rushSpeed * Time.deltaTime);
             yield return new WaitForFixedUpdate();
         }
+        isReflex = false;
     }
 
     void Jump()
@@ -85,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void CatchEnemy(Vector2 EnemyPos)
     {
+        playerHook.PutHook();
         StartCoroutine(RushToEnemy(EnemyPos));
     }
 
@@ -105,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
         SoundPlayer.PlaySoundFx("Attack_Sound");
         Destroy(enemy, 0.2f);
 
-        //느려지는 함수
+        LogicManager.instance.EnemyHit();
         yield return new WaitForSeconds(0.2f);
 
         float curTime = 0;
@@ -122,17 +125,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector2(jumpForce, jumpForce);
             }
-            else
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            }
             yield return null;
         }
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             isReachEnemy = true;
             StartCoroutine(KillEnemy(collision.gameObject));
