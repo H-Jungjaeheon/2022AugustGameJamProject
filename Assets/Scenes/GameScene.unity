@@ -3409,9 +3409,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1211530525, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1211530527, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
       propertyPath: field of view
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211530527, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 1472832467348404627, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
       propertyPath: m_Name
@@ -3425,6 +3433,10 @@ PrefabInstance:
       propertyPath: line
       value: 
       objectReference: {fileID: 831713471}
+    - target: {fileID: 1472832467348404629, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
+      propertyPath: hookMaxLength
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1472832467348404631, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
       propertyPath: m_RootOrder
       value: 17

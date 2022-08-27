@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            Vector2 rushPoint = playerHook.hook.position + Vector3.up * 3f;
+            Vector2 rushPoint = playerHook.hook.position + new Vector3(1,1,0) * 3f;
             playerHook.PutHook();
             StartCoroutine(Rushing(rushPoint));
         }
@@ -187,6 +187,8 @@ public class PlayerMovement : MonoBehaviour
                 rig.velocity = Vector3.zero;
 
                 var dir = collision.gameObject.transform.position - transform.position;
+
+                SoundPlayer.PlaySoundFx("Reflect_Sound");
                 rig.AddForce(dir * (rig.velocity.magnitude * 3), ForceMode2D.Impulse);
             }
 
