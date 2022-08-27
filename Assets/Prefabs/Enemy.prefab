@@ -116,7 +116,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -136,10 +136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: 
   nextMove: 0
-  moveSpeed: 0
+  moveSpeed: 30
   power: 10
-  maxShotDelay: 10
-  curShotDelay: 0
+  maxShotDelay: 3
   sprites: []
   bulletObject: {fileID: 986864122328820075, guid: 1a5697f264fce7348be88d03f9844a97, type: 3}
-  player: {fileID: 0}

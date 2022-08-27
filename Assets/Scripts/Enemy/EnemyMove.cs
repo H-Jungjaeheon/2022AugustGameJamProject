@@ -9,10 +9,10 @@ public class EnemyMove : MonoBehaviour
     public float moveSpeed;
     public float power = 10;
     public float maxShotDelay;
-    public float curShotDelay;
+    //public float curShotDelay;
     public Sprite[] sprites;
-    public GameObject  bulletObject;
-    public GameObject player;
+    //public GameObject  bulletObject;
+    private GameObject player;
 
     Transform playerPos;
     Vector3 dir;
@@ -23,16 +23,23 @@ public class EnemyMove : MonoBehaviour
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        this.gameObject.AddComponent<Rigidbody2D>();
+        //if(GetComponent<Rigidbody2D>())
+        //    this.gameObject.AddComponent<Rigidbody2D>();
+
         rigid = GetComponent<Rigidbody2D>();
         Invoke("Think", 5);
     }
 
+    private void Start()
+    {
+        player = LogicManager.Inst.playerObj;
+        StartCoroutine(Shot());
+    }
     // Update is called once per frame
     private void FixedUpdate()
     {
-        Move();
-        Shot();
+        //Move();
+        //Shot();
     }
     //Àç±Í½Ä
     void Think()
@@ -40,19 +47,56 @@ public class EnemyMove : MonoBehaviour
         nextMove = Random.Range(-1, 2);
         Invoke("Think", 5);
     }
-    void Shot()
-    {
-        if (curShotDelay < maxShotDelay)
-            return;
-        GameObject bullet = Instantiate(bulletObject, transform.position, transform.rotation);
-        Rigidbody2D rig = bullet.GetComponent<Rigidbody2D>();
 
-        playerPos = GameObject.Find("Player").GetComponent<Transform>();
-        dir = player.transform.position - transform.position;
-        
-        rig.AddForce(dir * power, ForceMode2D.Impulse);
-        curShotDelay = 0;
+    IEnumerator Shot()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(maxShotDelay);
+            //GameObject bullet = Instantiate(bulletObject, transform.position, transform.rotation);
+            GameObject bullet = BulletPoolMgr.Inst.bulletPool.GetObject();
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = transform.rotation;
+
+            Rigidbody2D rig = bullet.GetComponent<Rigidbody2D>();
+
+            if (LogicManager.Inst != null)
+                playerPos = LogicManager.Inst.playerObj.transform;
+            else
+                playerPos = GameObject.Find("Player").GetComponent<Transform>();
+
+            dir = player.transform.position - transform.position;
+
+            rig.AddForce(dir * power, ForceMode2D.Impulse);
+        }
     }
+
+    private void Update()
+    {
+        Move();
+    }
+    //void Shot()
+    //{
+    //    if (curShotDelay < maxShotDelay)
+    //        return;
+
+    //    //GameObject bullet = Instantiate(bulletObject, transform.position, transform.rotation);
+    //    GameObject bullet = BulletPoolMgr.Inst.bulletPool.GetObject();
+    //    bullet.transform.position = transform.position;
+    //    bullet.transform.rotation = transform.rotation;
+
+    //    Rigidbody2D rig = bullet.GetComponent<Rigidbody2D>();
+
+    //    if(LogicManager.Inst != null)
+    //        playerPos = LogicManager.Inst.playerObj.transform;
+    //    else
+    //        playerPos = GameObject.Find("Player").GetComponent<Transform>();
+
+    //    dir = player.transform.position - transform.position;
+
+    //    rig.AddForce(dir * power, ForceMode2D.Impulse);
+    //    curShotDelay = 0;
+    //}
     void Move()
     {
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
@@ -64,6 +108,7 @@ public class EnemyMove : MonoBehaviour
         if (pos.y > 1f) pos.y = 1f;
         transform.position = Camera.main.ViewportToWorldPoint(pos);
 
-        rigid.velocity = new Vector2(nextMove, rigid.velocity.y * 10);
+        rigid.velocity = new Vector2(nextMove, rigid.velocity.y * moveSpeed);
+
     }
 }

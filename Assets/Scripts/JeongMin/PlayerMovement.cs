@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
         SoundPlayer.PlaySoundFx("Attack_Sound");
         Destroy(enemy, 0.2f);
 
-        LogicManager.instance.EnemyHit();
+        LogicManager.Inst.EnemyHit(0.5f);
         yield return new WaitForSeconds(0.2f);
 
         float curTime = 0;

@@ -10,8 +10,9 @@ public enum GameStates
     GameClear,
 }
 
-public class LogicManager : MonoSingleton<LogicManager>
+public class LogicManager : MonoSingle<LogicManager>
 {
+    public GameObject playerObj = null;
     private int killEnemyCount;
     public int KillEnemyCount
     {
@@ -25,9 +26,15 @@ public class LogicManager : MonoSingleton<LogicManager>
         }
     }
 
-    private int nowGameState;
+    public GameStates nowGameState;
 
+    [HideInInspector]
     public float gameTime;
+
+    private void Start()
+    {
+        nowGameState = GameStates.Playing;
+    }
 
     // Update is called once per frame
     void Update()
@@ -35,17 +42,17 @@ public class LogicManager : MonoSingleton<LogicManager>
         StartTimer();
     }
 
-    public void ChangeNowGameState(int changeGameState) //enum타입에 맞는 변경할 상태 넣기
+    public void ChangeNowGameState(GameStates changeGameState) //enum타입에 맞는 변경할 상태 넣기
     {
-        if (changeGameState <= (int)GameStates.GameClear)
-        {
             nowGameState = changeGameState;
-        }
+        //if (changeGameState <= GameStates.GameClear)
+        //{
+        //}
     }
 
     private void StartTimer()
     {
-        if (nowGameState == (int)GameStates.Playing)
+        if (nowGameState == GameStates.Playing)
         {
             gameTime += Time.deltaTime;
         }
