@@ -7,8 +7,6 @@ public class ObjectSpawner : MonoBehaviour
     //[SerializeField]
     //private GameObject[] prefabArray;
     [SerializeField]
-    ObjectPool enemyPool = null;
-
     List<GameObject> enemys = new List<GameObject>();
     [SerializeField]
     private int objectSpqwnCount = 10;
@@ -17,7 +15,8 @@ public class ObjectSpawner : MonoBehaviour
     public GameObject player;
     public float spawnTime = 5;
     public bool isGameOver = false;
-
+    public ObjectPool enemyPool = null;
+    public ObjectMng objectMng = null;
     private void Update()
     {
         time += Time.deltaTime;
@@ -62,7 +61,7 @@ public class ObjectSpawner : MonoBehaviour
 
 
         //게임 종료 시까지 무한 루프
-        while (LogicManager.Inst.nowGameState == GameStates.Playing)
+        while (!isGameOver)
         {
             //현재 생성된 몬스터 개수 산출
             int monsterCount = enemys.Count;
@@ -85,11 +84,9 @@ public class ObjectSpawner : MonoBehaviour
                 clone.transform.position = position;
                 clone.transform.rotation = Quaternion.identity;
                 clone.tag = "Enemy";
-                clone.AddComponent<EnemyMove>();
-                clone.AddComponent<CircleCollider2D>();
-                clone.GetComponent<Rigidbody2D>().gravityScale = 0;
-                EnemyMove enemyLogic = clone.GetComponent<EnemyMove>();
-                //enemyLogic.player = player;
+                clone.AddComponent<Enemy>();
+                Enemy enemyLogic = clone.GetComponent<Enemy>();
+                enemyLogic.player = player;
             }
             else
             {
