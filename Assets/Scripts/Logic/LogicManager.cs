@@ -12,6 +12,7 @@ public enum GameStates
 public class LogicManager : MonoSingle<LogicManager>
 {
     public GameObject playerObj = null;
+    public Camera subCamera = null;
     private int killEnemyCount;
     public int KillEnemyCount
     {
@@ -46,19 +47,22 @@ public class LogicManager : MonoSingle<LogicManager>
         StartTimer();
     }
 
-    public void ChangeNowGameState(GameStates changeGameState) //enum타입에 맞는 변경할 상태 넣기
-    {
-        nowGameState = changeGameState;
-    }
-
     public void GameOver()
     {
         nowGameState = GameStates.GameOver;
+        if(UIMgr.Inst != null)
+        {
+            UIMgr.Inst.OnGameOverPopup("생존 시간 ( " + getParseTime(gameTime) + " )");
+        }
+        GamePause(true);
     }
 
     public void ReStart()
     {
         nowGameState = GameStates.Playing;
+        SceneTransition obj = gameObject.AddComponent<SceneTransition>();
+        obj.scene = "GameScene";
+        obj.PerformTransition();
     }
 
     private void StartTimer()
@@ -97,6 +101,8 @@ public class LogicManager : MonoSingle<LogicManager>
     public void EnemyHit(float hitEventTime)
     {
         StartCoroutine(EnemyHitTimeScale(hitEventTime));
+        StartCoroutine(CameraZoom(hitEventTime));
+        
     }
     IEnumerator EnemyHitTimeScale(float hitEventTime)
     {
@@ -113,4 +119,30 @@ public class LogicManager : MonoSingle<LogicManager>
         }
         Time.timeScale = 1;
     }
+    IEnumerator CameraZoom(float hitEventTime)
+    {
+        subCamera.gameObject.SetActive(true);
+        float nowEventTime = 0;
+        while (nowEventTime < hitEventTime/2.0f)
+        {
+            nowEventTime += Time.deltaTime;
+            subCamera.fieldOfView = Mathf.Lerp(subCamera.fieldOfView, 40.0f, nowEventTime / (hitEventTime / 2.0f));
+            yield return null;
+        }
+
+        //60 - > 40
+        nowEventTime = 0;
+        while (nowEventTime < hitEventTime / 2.0f)
+        {
+            nowEventTime += Time.deltaTime;
+            subCamera.fieldOfView = Mathf.Lerp(subCamera.fieldOfView, 60.0f, nowEventTime / (hitEventTime / 2.0f));
+            yield return null;
+        }
+        // 40 -> 60
+
+        yield return null;
+        subCamera.gameObject.SetActive(false);
+
+    }
+
 }

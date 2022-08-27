@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05829d7d6b0c1bc438abab133712b79c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Delay: 3
+  Delay: 10
   parent: 0
 --- !u!50 &4886528576543561516
 Rigidbody2D:

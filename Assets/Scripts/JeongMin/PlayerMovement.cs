@@ -160,7 +160,26 @@ public class PlayerMovement : MonoBehaviour
             isReachEnemy = true;
             StartCoroutine(KillEnemy(collision.gameObject));
         }
-        else if (collision.gameObject.CompareTag("Bullet"))
+        ////else if (collision.gameObject.CompareTag("Bullet"))
+        //else if (collision.gameObject.GetComponent<Bullet>())
+        //{
+        //    if (isReflex)
+        //    {
+        //        Rigidbody2D rig = collision.gameObject.GetComponent<Rigidbody2D>();
+        //        rig.velocity = Vector3.zero;
+
+        //        var dir = collision.gameObject.transform.position - transform.position;
+        //        rig.AddForce(dir * (rig.velocity.magnitude * 3), ForceMode2D.Impulse);
+        //    }
+
+        //    //반사가 아닐 시 게임오버 처리
+        //    Die();
+        //}
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<Bullet>())
         {
             if (isReflex)
             {
@@ -171,13 +190,12 @@ public class PlayerMovement : MonoBehaviour
                 rig.AddForce(dir * (rig.velocity.magnitude * 3), ForceMode2D.Impulse);
             }
 
-            //반사가 아닐 시 게임오버 처리
             Die();
         }
     }
 
     public void Die()
     {
-
+        LogicManager.Inst.GameOver();
     }
 }

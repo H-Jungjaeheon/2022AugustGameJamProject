@@ -8,7 +8,8 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Destroy(gameObject);
+            GetComponent<PooledObject>().Pool.ReturnObject(this.gameObject);
+            //Destroy(gameObject);
         }
     }
 }
