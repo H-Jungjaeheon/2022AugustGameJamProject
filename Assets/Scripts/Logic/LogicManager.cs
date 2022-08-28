@@ -25,7 +25,7 @@ public class LogicManager : MonoSingle<LogicManager>
             killEnemyCount = value;
             if(UIMgr.Inst !=null)
             {
-                UIMgr.Inst.killCountText.text ="(" + killEnemyCount.ToString()+ ")";
+                UIMgr.Inst.killCountText.text =$"({killEnemyCount})";
             }
 
         }

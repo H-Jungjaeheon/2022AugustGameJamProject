@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a883f28b0f9d0544485e020f49aeae6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 986864122328820075, guid: 1a5697f264fce7348be88d03f9844a97, type: 3}
+  Prefab: {fileID: 4971699761096648668, guid: 7eda1a940d725b243ac302a216d5f6f7, type: 3}
   InitialSize: 300
 --- !u!1 &2966956487413923523
 GameObject:
@@ -168,7 +168,6 @@ MonoBehaviour:
   sprites:
   - {fileID: 0}
   bulletObject: {fileID: 4971699761096648668, guid: 7eda1a940d725b243ac302a216d5f6f7, type: 3}
-  player: {fileID: 0}
 --- !u!50 &1373653701137885019
 Rigidbody2D:
   serializedVersion: 4

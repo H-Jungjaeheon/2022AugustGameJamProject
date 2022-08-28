@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
     public int time;
     public Sprite[] sprites;
     public GameObject  bulletObject;
-    public GameObject player;
     Vector3 dir;
     //public ObjectPool bulletPool = null;
     Transform playerPos;
