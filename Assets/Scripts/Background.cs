@@ -10,11 +10,11 @@ public class Background : MonoBehaviour
     {
         transform.position = new Vector3(target.transform.position.x, transform.position.y, transform.position.z);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (LogicManager.Inst != null)
-        {
-            LogicManager.Inst.playerObj.GetComponent<PlayerMovement>().Die();
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (LogicManager.Inst != null)
+    //    {
+    //        LogicManager.Inst.playerObj.GetComponent<PlayerMovement>().Die();
+    //    }
+    //}
 }
