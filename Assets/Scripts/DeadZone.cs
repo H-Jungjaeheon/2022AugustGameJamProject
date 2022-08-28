@@ -14,6 +14,7 @@ public class DeadZone : MonoBehaviour
     {
         if(LogicManager.Inst != null && collision.CompareTag("Player"))
         {
+            print("Die");
             LogicManager.Inst.playerObj.GetComponent<PlayerMovement>().Die();
         }
     }

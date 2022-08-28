@@ -10,6 +10,7 @@ public enum PlayerState
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Camera SubCam;
     PlayerState currentState;
 
     [SerializeField] float playerSpeed;
@@ -54,16 +55,16 @@ public class PlayerMovement : MonoBehaviour
         if (playerHook.isHang) currentState = PlayerState.Hang;
         SpriteChange();
         Rush();
-        Jump();        
+        Jump();
     }
 
     void SpriteChange()
     {
-        if(rb.velocity.x > 0)
+        if (rb.velocity.x > 0)
         {
             spriteRenderer.flipX = false;
         }
-        else if(rb.velocity.x < 0)
+        else if (rb.velocity.x < 0)
         {
             spriteRenderer.flipX = true;
         }
@@ -89,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            Vector2 rushPoint = playerHook.hook.position + new Vector3(1,1,0) * 3f;
+            Vector2 rushPoint = playerHook.hook.position + new Vector3(1, 1, 0) * 3f;
             playerHook.PutHook();
             StartCoroutine(Rushing(rushPoint));
         }
@@ -151,6 +152,7 @@ public class PlayerMovement : MonoBehaviour
         LogicManager.Inst.EnemyHit(0.5f);
         //공격 애니메이션
         Destroy(enemy, 0.1f);
+        LogicManager.Inst.KillEnemyCount++;
         yield return new WaitForSeconds(0.2f);
 
         float curTime1 = 0;
@@ -229,15 +231,19 @@ public class PlayerMovement : MonoBehaviour
 
                 SoundPlayer.PlaySoundFx("Reflect_Sound");
                 rig.AddForce(dir * (rig.velocity.magnitude * 3), ForceMode2D.Impulse);
+                return;
             }
 
-            if (isCatchEnemy) return;
-            Invoke("Die", 1.5f);
+            if (!isCatchEnemy)
+            {
+                Invoke("Die", 1.5f);
+            }
         }
     }
 
     public void Die()
     {
+        SubCam.gameObject.SetActive(false);
         LogicManager.Inst.GameOver();
     }
 }

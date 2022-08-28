@@ -2015,7 +2015,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.8640845}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2026,7 +2026,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.6319382}
   m_EdgeRadius: 0
 --- !u!4 &836432539
 Transform:
@@ -3446,7 +3446,7 @@ PrefabInstance:
     - target: {fileID: 1472832467348404624, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 3955740310808264383, guid: 54f0bc2ed9b65094a94a4f727a6b4d41, type: 3}
+      objectReference: {fileID: -1532199066618313322, guid: 54f0bc2ed9b65094a94a4f727a6b4d41, type: 3}
     - target: {fileID: 1472832467348404624, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -3477,11 +3477,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1472832467348404625, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.2966667
+      value: 0.8411111
       objectReference: {fileID: 0}
     - target: {fileID: 1472832467348404625, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.7491425
+      value: 2.0180705
       objectReference: {fileID: 0}
     - target: {fileID: 1472832467348404627, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
       propertyPath: m_Name
@@ -3495,6 +3495,10 @@ PrefabInstance:
       propertyPath: line
       value: 
       objectReference: {fileID: 831713471}
+    - target: {fileID: 1472832467348404630, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
+      propertyPath: SubCam
+      value: 
+      objectReference: {fileID: 1211530527}
     - target: {fileID: 1472832467348404630, guid: 6a3c98ccbda206c4688bd3c80a8683f6, type: 3}
       propertyPath: P_Sprite.Array.data[0]
       value: 
