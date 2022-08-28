@@ -2136,11 +2136,11 @@ PrefabInstance:
       objectReference: {fileID: 395283471}
     - target: {fileID: 3019032789701007137, guid: c89f069125beed544aca49152a15ff47, type: 3}
       propertyPath: m_Radius
-      value: 2.1622036
+      value: 2.4898589
       objectReference: {fileID: 0}
     - target: {fileID: 3019032789701007137, guid: c89f069125beed544aca49152a15ff47, type: 3}
       propertyPath: m_Offset.x
-      value: 0.17497028
+      value: 0.06575139
       objectReference: {fileID: 0}
     - target: {fileID: 3019032789701007137, guid: c89f069125beed544aca49152a15ff47, type: 3}
       propertyPath: m_Offset.y
@@ -2947,7 +2947,7 @@ Transform:
   m_GameObject: {fileID: 1355634531}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -2, z: 0}
-  m_LocalScale: {x: 0.30000004, y: 0.30000004, z: 0.3}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

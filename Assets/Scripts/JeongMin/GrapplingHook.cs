@@ -21,7 +21,8 @@ public class GrapplingHook : MonoBehaviour
             joint2D.enabled = true;
             hook.isHang = true;
         }
-        else if (collision.CompareTag("Enemy"))
+        
+        if (collision.CompareTag("Enemy"))
         {
             player.CatchEnemy(collision.transform.position);
         }

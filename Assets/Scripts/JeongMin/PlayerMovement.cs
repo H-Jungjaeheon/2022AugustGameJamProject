@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     //นÝป็
     private bool isReflex;
     private bool isReachEnemy;
+    private bool isCatchEnemy;
     private void Start()
     {
         currentState = PlayerState.Jump;
@@ -126,6 +127,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void CatchEnemy(Vector2 EnemyPos)
     {
+        isCatchEnemy = true;
         playerHook.PutHook();
         StartCoroutine(RushToEnemy(EnemyPos));
     }
@@ -186,6 +188,8 @@ public class PlayerMovement : MonoBehaviour
             }
             yield return null;
         }
+        isReachEnemy = false;
+        isCatchEnemy = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -227,7 +231,8 @@ public class PlayerMovement : MonoBehaviour
                 rig.AddForce(dir * (rig.velocity.magnitude * 3), ForceMode2D.Impulse);
             }
 
-            Die();
+            if (isCatchEnemy) return;
+            Invoke("Die", 1.5f);
         }
     }
 
